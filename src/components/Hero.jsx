@@ -52,9 +52,9 @@ const Typewriter = ({ roles, delay = 100, pause = 1000 }) => {
 const Background = () => {
   return (
     <div className="absolute inset-0 z-0 overflow-hidden">
-      {/* Dark mode background */}
+      {/* Always show dark background by default */}
       <motion.div
-        className="hidden dark:block w-full h-full"
+        className="w-full h-full"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 2 }}
@@ -70,35 +70,9 @@ const Background = () => {
         </Canvas>
       </motion.div>
 
-      {/* Light mode animated blobs background */}
+      {/* Gradient Overlay - adjust colors for dark mode */}
       <motion.div
-        className="block dark:hidden absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 2 }}
-      >
-        <div className="absolute inset-0 opacity-40 mix-blend-overlay">
-          <motion.div
-            className="absolute top-0 left-0 w-64 h-64 bg-blue-300 rounded-full filter blur-3xl opacity-70 animate-blob"
-            animate={{ scale: [1, 1.1, 1], x: [0, 20, 0], y: [0, 20, 0] }}
-            transition={{ repeat: Infinity, duration: 10 }}
-          />
-          <motion.div
-            className="absolute top-0 right-0 w-64 h-64 bg-purple-300 rounded-full filter blur-3xl opacity-70 animate-blob"
-            animate={{ scale: [1, 1.05, 1], x: [0, -20, 0], y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 12 }}
-          />
-          <motion.div
-            className="absolute bottom-0 left-0 w-64 h-64 bg-pink-300 rounded-full filter blur-3xl opacity-70 animate-blob"
-            animate={{ scale: [1, 1.08, 1], x: [0, 30, 0], y: [0, -20, 0] }}
-            transition={{ repeat: Infinity, duration: 14 }}
-          />
-        </div>
-      </motion.div>
-
-      {/* Gradient Overlay */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-b from-white/80 to-white dark:from-gray-900/80 dark:to-gray-900"
+        className="absolute inset-0 bg-gradient-to-b from-gray-900/80 to-gray-900"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 2.5 }}

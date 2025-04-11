@@ -40,3 +40,18 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Prevent dark mode flash */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-gray-900 text-gray-100;
+  }
+}
+
+/* Smooth transitions */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
