@@ -72,7 +72,7 @@ const Resume = () => {
                 <motion.a
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  href="/assets/resume.pdf"
+                  href="/assets/Prakash_resume.pdf"
                   download="Prakash_Resume.pdf"
                   className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg"
                 >

@@ -8,6 +8,7 @@ import {
   FiCode,
   FiLayers,
   FiCpu,
+  FiAlertTriangle,
 } from "react-icons/fi";
 
 const projects = [
@@ -26,7 +27,7 @@ const projects = [
       "WebSocket",
     ],
     image: "/assets/images/project1.jpg",
-    github: "https://github.com/ptalpada222",
+    github: "https://github.com/ptalpada222/eFood",
     live: "https://your-live-link.com",
     features: [
       "Admin panel for managing menu and orders",
@@ -45,8 +46,8 @@ const projects = [
       "A sleek and elegant frontend for an online jewellery store, showcasing beautiful designs with modern UI and responsive layouts.",
     tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
     image: "/assets/images/project2.jpg",
-    github: "https://github.com/ptalpada222",
-    live: "https://your-live-link.com",
+    github: "https://github.com/ptalpada222/Ashirwaad",
+    live: "https://aashirwaad.netlify.app/",
     features: [
       "Home, shop, and contact sections with smooth navigation",
       "Product gallery with filters for categories and price",
@@ -62,8 +63,8 @@ const projects = [
       "Personal portfolio website showcasing projects and skills with modern design.",
     tags: ["React", "Framer Motion", "Three.js"],
     image: "/assets/images/project3.jpg",
-    github: "https://github.com/ptalpada222",
-    live: "https://example.com",
+    github: "https://github.com/ptalpada222/portfolio",
+    live: "https://prakashtech.netlify.app/",
     features: [
       "Interactive 3D elements with Three.js",
       "Smooth animations with Framer Motion",
@@ -75,7 +76,7 @@ const projects = [
     id: 4,
     title: "HealthScan",
     description:
-      "An AI-powered health assistant that scans food product QR codes or images to determine their compatibility with a user’s medical conditions.",
+      "An AI-powered health assistant that scans food product QR codes or images to determine their compatibility with a user's medical conditions.",
     tags: [
       "Next.js",
       "Node.js",
@@ -86,7 +87,7 @@ const projects = [
       "Framer Motion",
     ],
     image: "/assets/images/project4.jpg",
-    github: "https://github.com/ptalpada222",
+    github: "https://github.com/ptalpada222/Food_detection",
     live: "https://your-healthscan-app.com",
     features: [
       "User authentication with disease and medicine input",
@@ -105,7 +106,7 @@ const projects = [
       "A modern and responsive security-themed UI concept built to demonstrate advanced frontend design and layout skills.",
     tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
     image: "/assets/images/project5.jpg",
-    github: "https://github.com/ptalpada222",
+    github: "https://github.com/ptalpada222/gaurd",
     live: "https://your-live-link.com",
     features: [
       "Clean and professional UI layout for a security platform",
@@ -137,6 +138,7 @@ const projects = [
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [filter, setFilter] = useState("all");
+  const [show404, setShow404] = useState(false);
 
   const filteredProjects =
     filter === "all"
@@ -156,11 +158,67 @@ const Projects = () => {
     "Python",
   ];
 
+  const handleLiveDemoClick = (e, project) => {
+    e.preventDefault();
+    // Check if this is a demo environment
+    if (
+      project.live.includes("your-live-link") ||
+      project.live.includes("example") ||
+      project.live.includes("your-healthscan-app")
+    ) {
+      setShow404(true);
+    } else {
+      window.open(project.live, "_blank");
+    }
+  };
+
+  const close404 = () => {
+    setShow404(false);
+  };
+
   return (
     <section
       id="projects"
       className="py-20 bg-gray-50 dark:bg-gray-900 relative"
     >
+      {/* 404 Modal */}
+      {show404 && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            className="bg-white dark:bg-gray-800 rounded-xl max-w-md w-full p-8 text-center"
+          >
+            <div className="text-red-500 mb-4 flex justify-center">
+              <FiAlertTriangle className="w-12 h-12" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              404 Not Found
+            </h3>
+            <p className="text-gray-600 dark:text-gray-300 mb-6">
+              This demo is not available in the live preview. Please check the GitHub repository for more details.
+            </p>
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={close404}
+                className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              >
+                Close
+              </button>
+              <a
+                href="https://github.com/ptalpada222"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors flex items-center gap-2"
+              >
+                <FiGithub /> View GitHub
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      )}
+
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-blue-50 to-transparent dark:from-blue-900/20 dark:to-transparent opacity-50"></div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
@@ -211,7 +269,7 @@ const Projects = () => {
           />
         </motion.div>
 
-        {/* Filter Buttons - Fixed to show correct tech filters */}
+        {/* Filter Buttons */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -295,15 +353,13 @@ const Projects = () => {
                   >
                     <FiGithub /> Code
                   </a>
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    onClick={(e) => handleLiveDemoClick(e, project)}
                     className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
                     aria-label="View live demo"
                   >
                     <FiExternalLink /> Demo
-                  </a>
+                  </button>
                 </div>
               </div>
             </motion.div>
@@ -311,6 +367,7 @@ const Projects = () => {
         </div>
       </div>
 
+      {/* Project Details Modal */}
       {selectedProject && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <motion.div
@@ -353,14 +410,12 @@ const Projects = () => {
                   >
                     <FiGithub /> Code
                   </a>
-                  <a
-                    href={selectedProject.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    onClick={(e) => handleLiveDemoClick(e, selectedProject)}
                     className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
                   >
                     <FiExternalLink /> Live Demo
-                  </a>
+                  </button>
                 </div>
               </div>
 

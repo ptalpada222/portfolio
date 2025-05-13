@@ -7,6 +7,7 @@ import Resume from "./components/Resume";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
+
 const App = () => {
   useEffect(() => {
     document.documentElement.classList.add("dark");
